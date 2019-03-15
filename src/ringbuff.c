@@ -1,16 +1,19 @@
-/*
- * ringbuff.c
- *
- *  Created on: 2019/03/11
- *      Author: AshGarden
+/**
+ * @file	ringbuff.c
+ * @brief	RingBuffer
+ * @author	AshGarden
+ * @date	2019/03/11
  */
-
-
 #include "ringbuff.h"
 
-
-RINGMNG_T*	CreateRBMandRBD(	uint32_t	max_index,
-								uint32_t	max_len)
+/*!
+ * @fn		RINGMNG_T*	CreateRBMandRBD(uint32_t	max_index, uint32_t	max_len)
+ * @brief	Create RingBufferManager & RingBufferData Area
+ * @param [in] max_index	Max count write able to RingBuffer.
+ * @param [in] max_len		Size that can be written to the ring buffer at once.
+ * @return	RingBufferManager
+ */
+RINGMNG_T*	CreateRBMandRBD(	uint32_t	max_index, uint32_t	max_len)
 {
 	RINGMNG_T* mng;
 	uint8_t*	rbd;
@@ -31,26 +34,45 @@ RINGMNG_T*	CreateRBMandRBD(	uint32_t	max_index,
 	return mng;
 }
 
-
+/**
+ * @fn		void	DelleteRBMandRBD(RINGMNG_T*	mng)
+ * @brief	Dellete RingBufferManager & RingBufferData Area
+ * @param [in] mng	RingBufferManager
+ */
 void	DelleteRBMandRBD(RINGMNG_T*	mng)
 {
 	free(mng->rbd);
 	free(mng);
 }
 
-
+/**
+ * @fn		void initRBM(	RINGMNG_T	*mng,	uint32_t	max_index,	uint32_t	max_len,	uint8_t*	rbd)
+ * @brief	init RingBufferManager
+ * @param [in] mng			RingBufferManager
+ * @param [in] max_index	Max count write able to RingBuffer.
+ * @param [in] max_len		Size that can be written to the ring buffer at once.
+ * @param [in] data			RingBufferData Area
+ * @details		If you prepare the memory of RingBufferManager and RingBufferDataArea yourself,
+ * 				you can initialize with this function.
+ */
 void initRBM(	RINGMNG_T	*mng,
 				uint32_t	max_index,
 				uint32_t	max_len,
-				uint8_t*	data)
+				uint8_t*	rbd)
 {
 	mng->write_index = 0;
 	mng->read_index = 0;
 	mng->max_index = max_index;
 	mng->max_len = max_len;
-	mng->rbd = data;
+	mng->rbd = rbd;
 }
 
+/**
+ * @fn	void writeRB(	RINGMNG_T	*mng,	uint8_t*	data )
+ * @brief		Write Data to RingBuff
+ * @param [in] mng		RingBufferManager
+ * @param [in] data		Data
+ */
 void writeRB(	RINGMNG_T	*mng,
 				uint8_t*	data )
 {
@@ -61,7 +83,13 @@ void writeRB(	RINGMNG_T	*mng,
 			(mng->write_index + 1) % mng->max_index;
 }
 
-
+/**
+ * @fn		bool readRB(	RINGMNG_T	*mng,uint8_t*	data )
+ * @brief	Read Data from RingBuffer
+ * @param [in] mng			RingBufferManager
+ * @param [out] data		Data
+ * @return
+ */
 bool readRB(	RINGMNG_T	*mng,
 				uint8_t*	data )
 {

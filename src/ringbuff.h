@@ -1,8 +1,8 @@
-/*
- * ringbuff.h
- *
- *  Created on: 2019/03/11
- *      Author: AshGarden
+/**
+ * @file	ringbuff.h
+ * @brief	RingBuffer
+ * @author	AshGarden
+ * @date	2019/03/11
  */
 
 #ifndef RINGBUFF_H_
@@ -25,7 +25,7 @@ void	DelleteRBMandRBD(RINGMNG_T*	mng);
 void initRBM(	RINGMNG_T	*mng,
 				uint32_t	max_index,
 				uint32_t	max_len,
-				uint8_t*	data);
+				uint8_t*	rbd);
 
 void writeRB(	RINGMNG_T	*mng,
 				uint8_t*	data );
