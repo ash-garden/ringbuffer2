@@ -17,7 +17,7 @@ typedef struct
 
 int main(int argc, char **argv) {
 	int i;
-	int str[100];
+	char str[100];
 	MyStruct st;
 	RINGMNG_T*	intRing;
 	RINGMNG_T*	strRing;
@@ -27,10 +27,10 @@ int main(int argc, char **argv) {
 
 	for(i=0;i<3;i++)
 	{
-		writeRB(intRing,&i);
+		WriteRB(intRing,&i);
 	}
 
-	while(readRB(intRing,&i))
+	while(ReadRB(intRing,&i))
 	{
 		printf("%d\n",i);
 	}
@@ -41,10 +41,10 @@ int main(int argc, char **argv) {
 	for(i=100;i<103;i++)
 	{
 		sprintf(str,"%d",i);
-		writeRB(strRing,str);
+		WriteRB(strRing,str);
 	}
 
-	while(readRB(strRing,str))
+	while(ReadRB(strRing,str))
 	{
 		printf("%s\n",str);
 	}
@@ -55,11 +55,11 @@ int main(int argc, char **argv) {
 	{
 		st.i = i;
 		st.s = i*2;
-		sprintf(&st.c,"%d",i*10);
-		writeRB(stRing,&st);
+		sprintf(st.c,"%d",i*10);
+		WriteRB(stRing,&st);
 	}
 
-	while(readRB(stRing,&st) )
+	while(ReadRB(stRing,&st) )
 	{
 		printf("i=%d\n",st.i);
 		printf("s=%d\n",st.s);

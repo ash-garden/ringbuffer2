@@ -7,6 +7,9 @@
 
 #ifndef RINGBUFF_H_
 #define RINGBUFF_H_
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -32,6 +35,9 @@ void writeRB(	RINGMNG_T	*mng,
 
 bool readRB(	RINGMNG_T	*mng,
 				uint8_t*	data );
+
+#define WriteRB(x,y) writeRB(x,(uint8_t*)y)
+#define ReadRB(x,y) readRB(x,(uint8_t*)y)
 
 
 #endif /* RINGBUFF_H_ */
